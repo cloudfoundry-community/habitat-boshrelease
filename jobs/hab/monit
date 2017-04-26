@@ -1,0 +1,5 @@
+check process hab
+  with pidfile /var/vcap/sys/run/hab/pid
+  start program "/var/vcap/jobs/hab/bin/ctl start"
+  stop program "/var/vcap/jobs/hab/bin/ctl stop"
+  group vcap

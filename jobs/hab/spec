@@ -1,0 +1,17 @@
+---
+name: hab
+
+templates:
+  bin/ctl.erb: bin/ctl
+  bin/post-start.erb: bin/post-starts
+
+consumes:
+- name: primary_db
+  type: db
+
+packages:
+  - hab
+
+properties:
+  hab.package:
+    description: "Here you will need to put your orgin/package of your habitat package"

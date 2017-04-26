@@ -1,0 +1,7 @@
+#!/bin/bash
+set -ex
+
+tar xfv hab/hab-0.21.0-20170421003135-x86_64-linux.tar.gz
+cd hab-0.21.0-20170421003135-x86_64-linux
+mkdir -p ${BOSH_INSTALL_TARGET}/bin
+cp hab ${BOSH_INSTALL_TARGET}/bin

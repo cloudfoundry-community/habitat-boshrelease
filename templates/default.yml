@@ -1,0 +1,60 @@
+---
+name: wordpress
+update:
+  canaries: 1
+  canary_watch_time: 30000-1200000
+  max_in_flight: 5
+  serial: false
+  update_watch_time: 5000-1200000
+
+instance_groups:
+- name: mysql
+  azs:
+  - z1
+  instances: 1
+  # persistent_disk_type: 5GB
+  vm_type: default
+  stemcell: default
+  update:
+    max_in_flight: 1
+    serial: true
+  networks:
+  - name: default
+  jobs:
+  - name: hab
+    release: hab
+  provides:
+    conn: {as: data_db}
+  properties:
+    hab:
+      package: starkandwayne/mysql
+
+- name: wordpress
+  azs:
+  - z1
+  instances: 1
+  # persistent_disk_type: 5GB
+  vm_type: default
+  stemcell: default
+  update:
+    max_in_flight: 1
+    serial: true
+  networks:
+  - name: default
+  jobs:
+  - name: hab
+    release: hab
+  consumes:
+    primary_db: {from: data_db}
+  properties:
+    hab:
+      package: starkandwayne/wordpress
+
+releases:
+- name: hab
+  version: latest
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: "3363.15"

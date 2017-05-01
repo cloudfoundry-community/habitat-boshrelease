@@ -1,3 +1,19 @@
 #!/bin/bash
 
-exec /var/vcap/packages/hab/bin/hab service load <%= p("hab.package") %>
+JOB_DIR=/var/vcap/jobs/hab/
+
+<%
+bind_args = ""
+if_p("hab.binds") do | binds |
+  binds.each do | bind |
+    bind_args += " --bind #{bind}"
+  end
+end
+%>
+
+svc_dir="/hab/svc/$(basename <%= p("hab.service") %>)"
+mkdir -p $svc_dir
+
+cp $JOB_DIR/config/user.toml $svc_dir/
+
+exec /var/vcap/packages/hab/bin/hab service load <%= p("hab.service") %> <%= bind_args %> --group <%= p("hab.group") %>

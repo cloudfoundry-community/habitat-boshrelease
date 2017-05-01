@@ -4,6 +4,11 @@ RUN_DIR=/var/vcap/sys/run/hab
 LOG_DIR=/var/vcap/sys/log/hab
 PIDFILE=${RUN_DIR}/pid
 
+useradd hab
+chmod 777 /tmp
+
+export PATH=$PATH:/var/vcap/packages/hab/bin
+
 case $1 in
 
   start)
@@ -14,13 +19,17 @@ case $1 in
 
     cd /var/vcap/packages/hab
 
-    exec /var/vcap/packages/hab/bin/hab sup run --peer <%= link('primary_db').instances.first.address%> \
+    exec /var/vcap/packages/hab/bin/hab sup run \
+    <% link('habitat').instances.each do | instance | %> \
+    <%= "--peer #{instance.address} \\" %>
+    <% end %> \
       >>  $LOG_DIR/hab.stdout.log \
       2>> $LOG_DIR/hab.stderr.log
 
     ;;
 
   stop)
+    /var/vcap/packages/hab/bin/hab unload <%= p("hab.service") %>
     kill -9 `cat $PIDFILE`
     rm -f $PIDFILE
 

@@ -23,11 +23,17 @@ instance_groups:
   jobs:
   - name: hab
     release: hab
-  provides:
-    conn: {as: data_db}
+    provides:
+      habitat: {as: hab_mysql}
+    consumes:
+      habitat: {from: hab_mysql}
   properties:
     hab:
-      package: starkandwayne/mysql
+      service: starkandwayne/mysql
+      config: |
+        app_username='wordpress'
+        app_password='wordpress'
+        bind='0.0.0.0'
 
 - name: wordpress
   azs:
@@ -44,11 +50,14 @@ instance_groups:
   jobs:
   - name: hab
     release: hab
-  consumes:
-    primary_db: {from: data_db}
+    consumes:
+      habitat: {from: hab_mysql}
   properties:
     hab:
-      package: starkandwayne/wordpress
+      service: starkandwayne/wordpress
+      binds:
+        - "database:mysql.default"
+
 
 releases:
 - name: hab
@@ -57,4 +66,4 @@ releases:
 stemcells:
 - alias: default
   os: ubuntu-trusty
-  version: "3363.15"
+  version: "3363.20"

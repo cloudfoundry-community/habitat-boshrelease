@@ -3,15 +3,28 @@ name: hab
 
 templates:
   bin/ctl.erb: bin/ctl
-  bin/post-start.erb: bin/post-starts
+  bin/post-start.erb: bin/post-start
+  config/user.toml: config/user.toml
 
 consumes:
-- name: primary_db
-  type: db
+- name: habitat
+  type: habitat
+
+provides:
+- name: habitat
+  type: habitat
 
 packages:
   - hab
 
 properties:
-  hab.package:
+  hab.service:
     description: "Here you will need to put your orgin/package of your habitat package"
+  hab.binds:
+    description: ""
+  hab.group:
+    default: default
+    description: ""
+  hab.config:
+    default: ""
+    description: ""

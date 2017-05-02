@@ -9,6 +9,20 @@ chmod 777 /tmp
 
 export PATH=$PATH:/var/vcap/packages/hab/bin
 
+# create symlink so we can use this for the perisistant disk
+svc_dir="/hab/svc/$(basename <%= p("hab.service") %>)"
+svc_data_dir="/hab/svc/$(basename <%= p("hab.service") %>)/data"
+svc_static_dir="/hab/svc/$(basename <%= p("hab.service") %>)/static"
+
+store_data_dir="/var/vcap/store/$(basename <%= p("hab.service") %>)/data"
+store_static_dir="/var/vcap/store/$(basename <%= p("hab.service") %>)/static"
+mkdir -p $store_data_dir
+mkdir -p $store_static_dir
+mkdir -p $svc_dir
+
+ln -sf $store_data_dir $svc_data_dir
+ln -sf $store_static_dir $svc_static_dir
+
 case $1 in
 
   start)

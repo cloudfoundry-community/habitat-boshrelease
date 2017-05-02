@@ -12,7 +12,7 @@ instance_groups:
   azs:
   - z1
   instances: 1
-  # persistent_disk_type: 5GB
+  persistent_disk_type: 5GB
   vm_type: default
   stemcell: default
   update:
@@ -39,7 +39,7 @@ instance_groups:
   azs:
   - z1
   instances: 1
-  # persistent_disk_type: 5GB
+  #persistent_disk_type: 5GB
   vm_type: default
   stemcell: default
   update:

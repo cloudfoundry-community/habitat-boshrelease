@@ -28,3 +28,6 @@ properties:
   hab.config:
     default: ""
     description: ""
+  hab.topology:
+    default: standalone
+    description: ""

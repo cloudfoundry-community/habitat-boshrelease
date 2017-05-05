@@ -16,4 +16,4 @@ mkdir -p $svc_dir
 
 cp $JOB_DIR/config/user.toml $svc_dir/
 
-exec /var/vcap/packages/hab/bin/hab service load <%= p("hab.service") %> <%= bind_args %> --group <%= p("hab.group") %>
+exec /var/vcap/packages/hab/bin/hab service load <%= p("hab.service") %> <%= bind_args %> --topology <%= p("hab.topology") %> --group <%= p("hab.group") %>

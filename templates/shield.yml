@@ -1,0 +1,85 @@
+---
+name: shield
+update:
+  canaries: 1
+  canary_watch_time: 30000-1200000
+  max_in_flight: 5
+  serial: false
+  update_watch_time: 5000-1200000
+
+instance_groups:
+- name: database
+  azs:
+  - z1
+  instances: 3
+  persistent_disk_type: 5GB
+  vm_type: default
+  stemcell: default
+  networks:
+  - name: default
+  jobs:
+  - name: hab
+    release: hab
+    provides:
+      habitat: {as: hab_postgres}
+    consumes:
+      habitat: {from: hab_postgres}
+  properties:
+    hab:
+      service: starkandwayne/postgresql
+      topology: leader
+
+- name: shield
+  azs:
+  - z1
+  instances: 1
+  vm_type: default
+  stemcell: default
+  update:
+    max_in_flight: 1
+  networks:
+  - name: default
+  jobs:
+  - name: hab
+    release: hab
+    consumes:
+      habitat: {from: hab_postgres}
+  properties:
+    hab:
+      service: starkandwayne/shield
+      binds:
+        - "database:postgresql.default"
+
+# - name: agent
+#   azs:
+#   - z1
+#   instances: 1
+#   # persistent_disk_type: 5GB
+#   vm_type: default
+#   stemcell: default
+#   update:
+#     max_in_flight: 1
+#     serial: true
+#   networks:
+#   - name: default
+#   jobs:
+#   - name: hab
+#     release: hab
+#     consumes:
+#       habitat: {from: hab_postgres}
+#   properties:
+#     hab:
+#       service: starkandwayne/shield-agent
+#       config: |
+#         install_pg_tools=true
+#         shield_endpoint="https://shield"
+#         provisioning_key="autoprovision"
+
+releases:
+- name: hab
+  version: latest
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: "3363.20"

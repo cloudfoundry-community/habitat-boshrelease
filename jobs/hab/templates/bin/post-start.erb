@@ -14,6 +14,9 @@ end
 svc_dir="/hab/svc/$(basename <%= p("hab.service") %>)"
 mkdir -p $svc_dir
 
+echo "COPY user.toml"
 cp $JOB_DIR/config/user.toml $svc_dir/
 
-exec /var/vcap/packages/hab/bin/hab service load <%= p("hab.service") %> <%= bind_args %> --topology <%= p("hab.topology") %> --group <%= p("hab.group") %>
+echo "Starting habitat service"
+/var/vcap/packages/hab/bin/hab pkg install <%= p("hab.service") %>
+/var/vcap/packages/hab/bin/hab service load <%= p("hab.service") %> <%= bind_args %> --topology <%= p("hab.topology") %> --group <%= p("hab.group") %> --force

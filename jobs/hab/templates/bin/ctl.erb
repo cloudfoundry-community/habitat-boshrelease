@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 RUN_DIR=/var/vcap/sys/run/hab
 LOG_DIR=/var/vcap/sys/log/hab
 PIDFILE=${RUN_DIR}/pid
@@ -15,12 +17,16 @@ svc_static_dir="/hab/svc/$(basename <%= p("hab.service") %>)/static"
 
 store_data_dir="/var/vcap/store/$(basename <%= p("hab.service") %>)/data"
 store_static_dir="/var/vcap/store/$(basename <%= p("hab.service") %>)/static"
+
 mkdir -p $store_data_dir
 mkdir -p $store_static_dir
 mkdir -p $svc_dir
 
 ln -sf $store_data_dir $svc_data_dir
 ln -sf $store_static_dir $svc_static_dir
+
+chown -RL hab:hab $svc_data_dir
+chown -RL hab:hab $svc_static_dir
 
 case $1 in
 
@@ -29,8 +35,6 @@ case $1 in
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
 
     echo $$ > $PIDFILE
-
-    cd /var/vcap/packages/hab
 
     exec /var/vcap/packages/hab/bin/hab sup run \
     <% link('habitat').instances.each do | instance | %> \
@@ -42,7 +46,7 @@ case $1 in
     ;;
 
   stop)
-    /var/vcap/packages/hab/bin/hab unload <%= p("hab.service") %>
+    /var/vcap/packages/hab/bin/hab sup stop
     kill -9 `cat $PIDFILE`
     rm -f $PIDFILE
 

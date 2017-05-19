@@ -3,6 +3,7 @@ name: hab
 
 templates:
   bin/ctl.erb: bin/ctl
+  bin/monit_debugger: bin/monit_debugger
   bin/post-start.erb: bin/post-start
   config/user.toml: config/user.toml
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-tar xfv hab/hab-0.23.0-20170511215221-x86_64-linux.tar.gz
-cd hab-0.23.0-20170511215221-x86_64-linux
+tar xfv hab/hab-0.24.1-20170522083228-x86_64-linux.tar.gz
+cd hab-0.24.1-20170522083228-x86_64-linux
 mkdir -p ${BOSH_INSTALL_TARGET}/bin
 cp hab ${BOSH_INSTALL_TARGET}/bin

@@ -6,7 +6,7 @@ RUN_DIR=/var/vcap/sys/run/hab
 LOG_DIR=/var/vcap/sys/log/hab
 PIDFILE=${RUN_DIR}/pid
 
-useradd hab
+id -u hab &>/dev/null || useradd hab
 chmod 777 /tmp
 export PATH=$PATH:/var/vcap/packages/hab/bin
 

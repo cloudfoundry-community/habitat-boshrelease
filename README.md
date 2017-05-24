@@ -42,3 +42,14 @@ jobs:
   consumes:
     habitat: {from: hab_mysql}
 ```    
+
+## Supervisor only
+if you want to only use install the supervisor for some reason
+please set the service to supervisor
+
+example:
+```
+properties:
+  hab:
+    service: supervisor
+```    

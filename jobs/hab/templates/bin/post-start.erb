@@ -2,21 +2,25 @@
 
 JOB_DIR=/var/vcap/jobs/hab/
 
-<%
-bind_args = ""
-if_p("hab.binds") do | binds |
-  binds.each do | bind |
-    bind_args += " --bind #{bind}"
-  end
-end
-%>
+if [ <%= p("hab.service") %> == "supervisor" ]; then
+    echo "no service provided only starting the supervisor"
+else
+    <%
+    bind_args = ""
+    if_p("hab.binds") do | binds |
+      binds.each do | bind |
+        bind_args += " --bind #{bind}"
+      end
+    end
+    %>
 
-svc_dir="/hab/svc/$(basename <%= p("hab.service") %>)"
-mkdir -p $svc_dir
+    svc_dir="/hab/svc/$(basename <%= p("hab.service") %>)"
+    mkdir -p $svc_dir
 
-echo "COPY user.toml"
-cp $JOB_DIR/config/user.toml $svc_dir/
+    echo "COPY user.toml"
+    cp $JOB_DIR/config/user.toml $svc_dir/
 
-echo "Starting habitat service"
-/var/vcap/packages/hab/bin/hab pkg install <%= p("hab.service") %>
-/var/vcap/packages/hab/bin/hab service load <%= p("hab.service") %> <%= bind_args %> --topology <%= p("hab.topology") %> --group <%= p("hab.group") %> --force
+    echo "Starting habitat service"
+    /var/vcap/packages/hab/bin/hab pkg install <%= p("hab.service") %>
+    /var/vcap/packages/hab/bin/hab svc load <%= p("hab.service") %> <%= bind_args %> --topology <%= p("hab.topology") %> --group <%= p("hab.group") %> --force
+fi

@@ -26,8 +26,8 @@ you will need to define a provide and consume for your habitat database instance
 
 ```
 jobs:
-- name: hab
-  release: hab
+- name: habitat
+  release: habitat
   provides:
     habitat: {as: hab_mysql}
   consumes:
@@ -37,8 +37,8 @@ jobs:
 the service consumer needs
 ```
 jobs:
-- name: hab
-  release: hab
+- name: habitat
+  release: habitat
   consumes:
     habitat: {from: hab_mysql}
 ```    

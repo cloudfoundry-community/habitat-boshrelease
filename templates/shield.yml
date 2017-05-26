@@ -18,8 +18,8 @@ instance_groups:
   networks:
   - name: default
   jobs:
-  - name: hab
-    release: hab
+  - name: habitat
+    release: habitat
     provides:
       habitat: {as: hab_postgres}
     consumes:
@@ -40,8 +40,8 @@ instance_groups:
   networks:
   - name: default
   jobs:
-  - name: hab
-    release: hab
+  - name: habitat
+    release: habitat
     consumes:
       habitat: {from: hab_postgres}
   properties:
@@ -63,8 +63,8 @@ instance_groups:
 #   networks:
 #   - name: default
 #   jobs:
-#   - name: hab
-#     release: hab
+#   - name: habitat
+#     release: habitat
 #     consumes:
 #       habitat: {from: hab_postgres}
 #   properties:
@@ -76,7 +76,7 @@ instance_groups:
 #         provisioning_key="autoprovision"
 
 releases:
-- name: hab
+- name: habitat
   version: latest
 
 stemcells:

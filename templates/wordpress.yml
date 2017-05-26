@@ -22,7 +22,7 @@ instance_groups:
   - name: default
   jobs:
   - name: hab
-    release: hab
+    release: habitat
     provides:
       habitat: {as: hab_mysql}
     consumes:
@@ -49,7 +49,7 @@ instance_groups:
   - name: default
   jobs:
   - name: hab
-    release: hab
+    release: habitat
     consumes:
       habitat: {from: hab_mysql}
   properties:
@@ -60,7 +60,7 @@ instance_groups:
 
 
 releases:
-- name: hab
+- name: habitat
   version: latest
 
 stemcells:

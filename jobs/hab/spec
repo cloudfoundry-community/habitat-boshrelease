@@ -19,16 +19,16 @@ packages:
   - hab
 
 properties:
-  hab.service:
+  service:
     description: "Here you will need to put your orgin/package of your habitat package"
-  hab.binds:
-    description: ""
-  hab.group:
+  binds:
+    description: "set your binding service if needed"
+  group:
     default: default
-    description: ""
-  hab.config:
+    description: "set the group"
+  config:
     default: ""
-    description: ""
-  hab.topology:
+    description: "Here you can set your variables to override the default.toml"
+  topology:
     default: standalone
-    description: ""
+    description: "set the topology"

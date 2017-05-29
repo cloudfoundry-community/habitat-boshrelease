@@ -13,7 +13,7 @@ meta:
     private_key:  (( vault "secret/pipelines/habitat-boshrelease/github:private" ))
     access_token: (( vault "secret/pipelines/habitat-boshrelease/github:token" ))
   bosh-lite:
-    target: https://10.58.111.44:25555
+    target: https://10.58.111.46:25555
     deployment: habitat-warden
   slack:
     webhook: (( vault "secret/pipelines/habitat-boshrelease/slack:webhook" ))

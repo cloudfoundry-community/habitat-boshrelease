@@ -42,7 +42,7 @@ bosh -n create release
 bosh -n upload release --rebase || echo "Continuing..."
 
 header "Deploying to BOSH-lite..."
-bosh -n deployment ../../templates/supervisor.yml
+bosh -n deployment ./templates/supervisor.yml
 bosh -n deploy
 
 if [[ -n ${TEST_ERRAND} ]]; then

@@ -1,0 +1,36 @@
+---
+name: supervisor
+update:
+  canaries: 1
+  canary_watch_time: 30000-1200000
+  max_in_flight: 5
+  serial: false
+  update_watch_time: 5000-1200000
+
+instance_groups:
+- name: supervisor
+  azs:
+  - z1
+  instances: 1
+  vm_type: default
+  stemcell: default
+  update:
+    max_in_flight: 1
+  networks:
+  - name: default
+  jobs:
+  - name: habitat
+    release: habitat
+  properties:
+    hab:
+      service: supervisor
+
+
+releases:
+- name: habitat
+  version: latest
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: "3363.20"

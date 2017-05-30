@@ -103,13 +103,13 @@ jobs:
             BOSH_LITE_PASSWORD:   (( grab meta.bosh-lite.password ))
             BOSH_LITE_DEPLOYMENT: (( grab meta.bosh-lite.deployment ))
             TEST_ERRAND:          (( grab meta.test-errand || ~ ))
-      # on_failure:
-      #   put: notify
-      #   params:
-      #     channel:  (( grab meta.slack.channel ))
-      #     username: (( grab meta.slack.username ))
-      #     icon_url: (( grab meta.slack.icon ))
-      #     text:    '(( concat meta.slack.fail_url " " meta.pipeline ": test job failed" ))'
+      on_failure:
+        put: notify
+        params:
+          channel:  (( grab meta.slack.channel ))
+          username: (( grab meta.slack.username ))
+          icon_url: (( grab meta.slack.icon ))
+          text:    '(( concat meta.slack.fail_url " " meta.pipeline ": test job failed" ))'
 
   - name: rc
     public: true

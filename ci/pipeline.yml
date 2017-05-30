@@ -36,8 +36,10 @@ meta:
   bosh-lite:
     target:     (( param "Please specify the BOSH target URI for the bosh-lite to run test deployments against" ))
     deployment: (( param "Please specify the name of the local bosh-lite (warden) deployment" ))
+    ca_cert:    (( param "Please specify the ca certificate of the local bosh-lite (warden) deployment" ))
     username:   admin
     password:   admin
+    manifest:   (( param "Please specify the deployment manifest of the local bosh-lite (warden) deployment" ))
 
   slack:
     webhook:       (( param "Please specify your Slack Incoming Webhook Integration URL" ))
@@ -67,21 +69,24 @@ jobs:
       - aggregate:
         - { get: git, trigger: true }
       - task: testflight
-        config:
-          platform: linux
-          rootfs_uri:    (( grab meta.image ))
-          inputs:
-            - { name: git }
-          run:
-            path: ./git/ci/scripts/testflight
-            args: []
-          params:
-            REPO_ROOT:            git
-            BOSH_LITE_TARGET:     (( grab meta.bosh-lite.target ))
-            BOSH_LITE_USERNAME:   (( grab meta.bosh-lite.username ))
-            BOSH_LITE_PASSWORD:   (( grab meta.bosh-lite.password ))
-            BOSH_LITE_DEPLOYMENT: (( grab meta.bosh-lite.deployment ))
-            TEST_ERRAND:          (( grab meta.test-errand || ~ ))
+          - put: staging
+            params:
+              manifest: (( grab meta.bosh-lite.manifest ))
+        # config:
+        #   platform: linux
+        #   rootfs_uri:    (( grab meta.image ))
+        #   inputs:
+        #     - { name: git }
+        #   run:
+        #     path: ./git/ci/scripts/testflight
+        #     args: []
+        #   params:
+        #     REPO_ROOT:            git
+        #     BOSH_LITE_TARGET:     (( grab meta.bosh-lite.target ))
+        #     BOSH_LITE_USERNAME:   (( grab meta.bosh-lite.username ))
+        #     BOSH_LITE_PASSWORD:   (( grab meta.bosh-lite.password ))
+        #     BOSH_LITE_DEPLOYMENT: (( grab meta.bosh-lite.deployment ))
+        #     TEST_ERRAND:          (( grab meta.test-errand || ~ ))
       # on_failure:
       #   put: notify
       #   params:
@@ -208,6 +213,11 @@ resource_types:
     source:
       repository: cfcommunity/slack-notification-resource
 
+  - name: bosh-deployment
+    type: docker-image
+    source:
+      repository: cloudfoundry/bosh-deployment-resource
+
 resources:
   - name: git
     type: git
@@ -245,3 +255,12 @@ resources:
       regexp:            (( concat meta.name "-(.*).tgz" ))
       access_key_id:     (( grab meta.aws.access_key ))
       secret_access_key: (( grab meta.aws.secret_key ))
+
+  - name: staging
+    type: bosh-deployment
+    source:
+      deployment: (( grab meta.bosh-lite.deployment ))
+      target: (( grab meta.bosh-lite.target ))
+      client: (( grab meta.bosh-lite.username ))
+      client_secret: (( grab meta.bosh-lite.password ))
+      ca_cert: (( grab meta.bosh-lite.ca_cert ))

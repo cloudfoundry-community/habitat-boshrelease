@@ -1,5 +1,5 @@
 ---
-name: habitat-supervisor
+name: habitat
 update:
   canaries: 1
   canary_watch_time: 30000-1200000
@@ -19,7 +19,7 @@ instance_groups:
   networks:
   - name: default
   jobs:
-  - name: habitat
+  - name: hab
     release: habitat
   properties:
     hab:

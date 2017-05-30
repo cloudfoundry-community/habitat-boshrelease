@@ -1,0 +1,20 @@
+---
+packages:
+- name: hab
+  version: cc23dddfda27e944d14c8998d20e29cbce329713
+  fingerprint: cc23dddfda27e944d14c8998d20e29cbce329713
+  sha1: 3ac7f65dbef3017d13a9e9944291c53fdde21f09
+  dependencies: []
+jobs:
+- name: hab
+  version: 4850efeeb92e8bed6fa95a6e0766d34ddcb690a5
+  fingerprint: 4850efeeb92e8bed6fa95a6e0766d34ddcb690a5
+  sha1: 13873e09f9a24c953fe804377d7120ee57fa4705
+license:
+  version: 3bd5ab2a180d86b0c471a3c81a51c596e6c19078
+  fingerprint: 3bd5ab2a180d86b0c471a3c81a51c596e6c19078
+  sha1: be533d9ccf446320695fc52daae1bf94536a95a2
+commit_hash: 9af7e106
+uncommitted_changes: true
+name: habitat
+version: 0.0.1

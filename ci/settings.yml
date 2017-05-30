@@ -8,7 +8,7 @@ meta:
     access_key: (( vault "secret/aws/cfcommunity:access" ))
     secret_key: (( vault "secret/aws/cfcommunity:secret" ))
   github:
-    owner: starkandwayne
+    owner: cloudfoundry-community
     repo:  habitat-boshrelease
     private_key:  (( vault "secret/pipelines/habitat-boshrelease/github:private" ))
     access_token: (( vault "secret/pipelines/habitat-boshrelease/github:token" ))

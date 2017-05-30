@@ -8,27 +8,27 @@
 # author:  James Hunt <james@niftylogic.com>
 # created: 2016-03-30
 
-# header() {
-# 	echo
-# 	echo "###############################################"
-# 	echo
-# 	echo $*
-# 	echo
-# }
-#
-# header "Setting up ~/.bosh_config..."
-# cat > ~/.bosh_config << EOF
-# ---
-# aliases:
-#   target:
-#     bosh-lite: ${BOSH_LITE_TARGET}
-# auth:
-#   ${BOSH_LITE_TARGET}:
-#     username: ${BOSH_LITE_USERNAME}
-#     password: ${BOSH_LITE_PASSWORD}
-# EOF
-#
-# set -e
+header() {
+	echo
+	echo "###############################################"
+	echo
+	echo $*
+	echo
+}
+
+header "Setting up ~/.bosh_config..."
+cat > ~/.bosh_config << EOF
+---
+aliases:
+  target:
+    bosh-lite: ${BOSH_LITE_TARGET}
+auth:
+  ${BOSH_LITE_TARGET}:
+    username: ${BOSH_LITE_USERNAME}
+    password: ${BOSH_LITE_PASSWORD}
+EOF
+
+set -e
 cd ${REPO_ROOT}
 header "Pulling in any git submodules..."
 git submodule update --init --recursive --force

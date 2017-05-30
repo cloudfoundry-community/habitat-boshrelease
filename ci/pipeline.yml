@@ -68,10 +68,9 @@ jobs:
     - do:
       - aggregate:
         - { get: git, trigger: true }
-      - task: testflight
-          - put: staging
-            params:
-              manifest: (( grab meta.bosh-lite.manifest ))
+      - put: staging
+        params:
+          manifest: (( grab meta.bosh-lite.manifest ))
         # config:
         #   platform: linux
         #   rootfs_uri:    (( grab meta.image ))

@@ -46,7 +46,7 @@ case $1 in
     ;;
 
   stop)
-    /var/vcap/packages/hab/bin/hab sup stop
+    /var/vcap/packages/hab/bin/hab sup term
     kill -9 `cat $PIDFILE`
     rm -f $PIDFILE
 

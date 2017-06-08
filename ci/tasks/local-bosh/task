@@ -14,7 +14,7 @@ read_with_escaped_newlines() {
 
 # pushd "/tmp/local-bosh/director/env" > /dev/null
 
-cat <<- EOF > "local-bosh-source.json"
+cat <<- EOF > "sources/local-bosh-source.json"
   {
     "target": "https://10.245.0.3:25555",
     "client": "$(echo $BOSH_CLIENT)",

@@ -1,0 +1,22 @@
+#!/bin/bash -ex
+
+start-bosh
+
+source /tmp/local-bosh/director/env
+
+echo "Creating sources file..."
+
+# pushd "/tmp/local-bosh/director/env" > /dev/null
+
+cat <<- EOF > "local-bosh-source.json"
+  {
+    "target": "$(echo director-address)",
+    "client": "$(echo BOSH_CLIENT)",
+    "client_secret": "$(echo BOSH_CLIENT_SECRET)",
+    "ca_cert": "$(read_with_escaped_newlines <(cat /tmp/local-bosh/director/ca.crt))"
+  }
+EOF
+
+# popd > /dev/null
+
+cat local-bosh-source.json

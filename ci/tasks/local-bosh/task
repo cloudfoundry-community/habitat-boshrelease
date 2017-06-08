@@ -25,4 +25,4 @@ EOF
 
 # popd > /dev/null
 
-cat local-bosh-source.json
+cat sources/local-bosh-source.json

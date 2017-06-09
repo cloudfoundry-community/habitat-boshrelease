@@ -6,7 +6,7 @@ start-bosh
 source /tmp/local-bosh/director/env
 
 echo "Upload stemcell"
-bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
+bosh upload stemcell $stemcell
 echo "Deploy $manifest"
 bosh deploy $manifest -d $deploymentname
 

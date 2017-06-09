@@ -13,8 +13,9 @@ outputs:
   - name: sources
 
 params:
-  manifest: (( grab meta.bosh-lite.manifest ))
-  deploymentname: (( grab meta.bosh-lite.deployment ))
+  manifest: replaceme
+  deploymentname: replaceme
+  stemcell: replaceme
 
 run:
   path: git/ci/tasks/local-bosh/task

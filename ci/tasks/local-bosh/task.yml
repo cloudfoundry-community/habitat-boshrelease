@@ -12,7 +12,9 @@ inputs:
 outputs:
   - name: sources
 
-params: []
+params:
+  manifest: (( grab meta.bosh-lite.manifest ))
+  deploymentname: (( grab meta.bosh-lite.deployment ))
 
 run:
   path: git/ci/tasks/local-bosh/task

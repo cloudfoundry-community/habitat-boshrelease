@@ -1,15 +1,14 @@
 #!/bin/bash -ex
+echo "my manifest $manifest"
 
 start-bosh
 
 source /tmp/local-bosh/director/env
 
-echo "my manifest (( grab meta.bosh-lite.manifest ))" (( grab meta.bosh-lite.manifest ))
-
 echo "Upload stemcell"
 bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
-echo "Deploy (( grab meta.bosh-lite.deployment ))"
-bosh deploy (( grab meta.bosh-lite.manifest )) -d (( grab meta.bosh-lite.deployment ))
+echo "Deploy $manifest"
+bosh deploy $manifest -d $deploymentname
 
 # echo "Creating sources file..."
 #

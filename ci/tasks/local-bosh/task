@@ -6,7 +6,7 @@ start-bosh
 source /tmp/local-bosh/director/env
 
 echo "Upload stemcell"
-bosh upload stemcell $stemcell
+bosh upload-stemcell $stemcell
 echo "Deploy $manifest"
 bosh deploy $manifest -d $deploymentname
 

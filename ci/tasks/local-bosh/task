@@ -4,25 +4,30 @@ start-bosh
 
 source /tmp/local-bosh/director/env
 
-echo
+echo "my manifest (( grab meta.bosh-lite.manifest ))" (( grab meta.bosh-lite.manifest ))
 
-echo "Creating sources file..."
+echo "Upload stemcell"
+bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
+echo "Deploy (( grab meta.bosh-lite.deployment ))"
+bosh deploy (( grab meta.bosh-lite.manifest )) -d (( grab meta.bosh-lite.deployment ))
 
-read_with_escaped_newlines() {
-  perl -pe 's|\n|\\n|' "$1"
-}
-
-# pushd "/tmp/local-bosh/director/env" > /dev/null
-
-cat <<- EOF > "sources/local-bosh-source.json"
-  {
-    "target": "https://10.245.0.3:25555",
-    "client": "$(echo $BOSH_CLIENT)",
-    "client_secret": "$(echo $BOSH_CLIENT_SECRET)",
-    "ca_cert": "$(read_with_escaped_newlines <(cat /tmp/local-bosh/director/ca.crt))"
-  }
-EOF
-
-# popd > /dev/null
-
-cat sources/local-bosh-source.json
+# echo "Creating sources file..."
+#
+# read_with_escaped_newlines() {
+#   perl -pe 's|\n|\\n|' "$1"
+# }
+#
+# # pushd "/tmp/local-bosh/director/env" > /dev/null
+#
+# cat <<- EOF > "sources/local-bosh-source.json"
+#   {
+#     "target": "https://10.245.0.3:25555",
+#     "client": "$(echo $BOSH_CLIENT)",
+#     "client_secret": "$(echo $BOSH_CLIENT_SECRET)",
+#     "ca_cert": "$(read_with_escaped_newlines <(cat /tmp/local-bosh/director/ca.crt))"
+#   }
+# EOF
+#
+# # popd > /dev/null
+#
+# cat sources/local-bosh-source.json

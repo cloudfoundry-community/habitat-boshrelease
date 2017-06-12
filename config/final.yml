@@ -1,5 +1,5 @@
 ---
-final_name: habitat    
+final_name: habitat
 blobstore:
   provider: s3
   options:

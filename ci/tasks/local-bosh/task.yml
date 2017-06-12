@@ -9,10 +9,11 @@ image_resource:
 inputs:
   - name: git
 
-outputs:
-  - name: sources
+# outputs:
+#   - name: sources
 
 params:
+  REPO_ROOT: replaceme
   manifest: replaceme
   deploymentname: replaceme
   stemcell: replaceme

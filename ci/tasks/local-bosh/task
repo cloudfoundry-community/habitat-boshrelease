@@ -17,6 +17,8 @@ source /tmp/local-bosh/director/env
 header "Upload stemcell"
 bosh -n upload-stemcell $stemcell
 
+cd ${REPO_ROOT}
+
 header "creating release"
 bosh -n create-release
 bosh -n upload-release --rebase || echo "Continuing..."

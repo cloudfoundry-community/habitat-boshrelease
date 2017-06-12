@@ -16,7 +16,7 @@ meta:
     target: https://10.58.111.49:25555
     deployment: habitat
     ca_cert: (( vault "secret/bosh-lites/lite49/certs:rootCA.pem" ))
-    manifest: ./git/templates/supervisor.yml
+    manifest: ./templates/supervisor.yml
   slack:
     webhook: (( vault "secret/pipelines/habitat-boshrelease/slack:webhook" ))
     channel: "#cf-community-pipeline"

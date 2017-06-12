@@ -1,14 +1,27 @@
 #!/bin/bash -ex
-echo "my manifest $manifest"
+
+header() {
+	echo
+	echo "###############################################"
+	echo
+	echo $*
+	echo
+}
+
+header "Deploying Bosh"
 
 start-bosh
 
 source /tmp/local-bosh/director/env
 
-echo "Upload stemcell"
+header "Upload stemcell"
 bosh -n upload-stemcell $stemcell
 
-echo "Deploying $deploymentname with $manifest"
+header "creating release"
+bosh -n create release
+bosh -n upload release --rebase || echo "Continuing..."
+
+header "Deploying $deploymentname with $manifest"
 bosh -n deploy $manifest -d $deploymentname
 
 # echo "Creating sources file..."
@@ -31,3 +44,7 @@ bosh -n deploy $manifest -d $deploymentname
 # # popd > /dev/null
 #
 # cat sources/local-bosh-source.json
+
+echo
+echo "SUCCESS"
+exit 0

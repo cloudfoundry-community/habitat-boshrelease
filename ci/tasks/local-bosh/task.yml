@@ -8,6 +8,7 @@ image_resource:
 
 inputs:
   - name: git
+  - name: stemcell
 
 # outputs:
 #   - name: sources

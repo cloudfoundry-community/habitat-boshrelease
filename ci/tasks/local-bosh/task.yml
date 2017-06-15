@@ -8,7 +8,7 @@ image_resource:
 
 inputs:
   - name: git
-  - name: stemcell
+  - name: resource-bosh-stemcell
 
 # outputs:
 #   - name: sources

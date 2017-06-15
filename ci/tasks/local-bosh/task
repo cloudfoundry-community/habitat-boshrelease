@@ -8,6 +8,8 @@ header() {
 	echo
 }
 
+ls -ln
+
 header "Deploying Bosh"
 
 start-bosh

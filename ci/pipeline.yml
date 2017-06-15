@@ -65,9 +65,11 @@ jobs:
     public: true
     serial: true
     plan:
-    # - do:
-    #   - aggregate:
-    #     - { get: git, trigger: true }
+    - do:
+      - aggregate:
+        - { get: git, trigger: true }
+        - get: stemcell
+          resource: resource-bosh-stemcell
     #   - task: testflight
     #     config:
     #       platform: linux
@@ -86,10 +88,18 @@ jobs:
     #         TEST_ERRAND:          (( grab meta.test-errand || ~ ))
       - task: local-bosh
         file: git/ci/tasks/local-bosh/task.yml
-      - put: staging
+        privileged: true
         params:
-          source_file: local-bosh/local-bosh-source.json
+          REPO_ROOT: git
           manifest: (( grab meta.bosh-lite.manifest ))
+          deploymentname: (( grab meta.bosh-lite.deployment ))
+          # TODO: make stemcell a resource
+          stemcell: resource-bosh-stemcell/*.tgz
+
+      # - put: staging
+      #   params:
+      #     source_file: sources/local-bosh-source.json
+      #     manifest: (( grab meta.bosh-lite.manifest ))
 
       # - task: testflight_cleanup
       #   config:
@@ -241,6 +251,7 @@ resource_types:
 resources:
   - name: git
     type: git
+    submodules: all
     source:
       uri:         (( grab meta.github.uri ))
       branch:      (( grab meta.github.branch ))
@@ -276,11 +287,16 @@ resources:
       access_key_id:     (( grab meta.aws.access_key ))
       secret_access_key: (( grab meta.aws.secret_key ))
 
-  - name: staging
-    type: bosh-deployment
+  - name: resource-bosh-stemcell
+    type: bosh-io-stemcell
     source:
-      deployment: (( grab meta.bosh-lite.deployment ))
-      # target: (( grab meta.bosh-lite.target ))
-      # client: (( grab meta.bosh-lite.username ))
-      # client_secret: (( grab meta.bosh-lite.password ))
-      # ca_cert: (( grab meta.bosh-lite.ca_cert ))
+      name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+
+  # - name: staging
+  #   type: bosh-deployment
+  #   source:
+  #     deployment: (( grab meta.bosh-lite.deployment ))
+  #     # target: (( grab meta.bosh-lite.target ))
+  #     # client: (( grab meta.bosh-lite.username ))
+  #     # client_secret: (( grab meta.bosh-lite.password ))
+  #     # ca_cert: (( grab meta.bosh-lite.ca_cert ))

@@ -69,6 +69,7 @@ jobs:
       - aggregate:
         - { get: git, trigger: true }
         - get: resource-bosh-stemcell
+          resource: resource-bosh-stemcell
     #   - task: testflight
     #     config:
     #       platform: linux

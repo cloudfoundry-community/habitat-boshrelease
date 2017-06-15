@@ -28,27 +28,6 @@ bosh -n upload-release --rebase || echo "Continuing..."
 header "Deploying $deploymentname with $manifest"
 bosh -n deploy $manifest -d $deploymentname
 
-# echo "Creating sources file..."
-#
-# read_with_escaped_newlines() {
-#   perl -pe 's|\n|\\n|' "$1"
-# }
-#
-# # pushd "/tmp/local-bosh/director/env" > /dev/null
-#
-# cat <<- EOF > "sources/local-bosh-source.json"
-#   {
-#     "target": "https://10.245.0.3:25555",
-#     "client": "$(echo $BOSH_CLIENT)",
-#     "client_secret": "$(echo $BOSH_CLIENT_SECRET)",
-#     "ca_cert": "$(read_with_escaped_newlines <(cat /tmp/local-bosh/director/ca.crt))"
-#   }
-# EOF
-#
-# # popd > /dev/null
-#
-# cat sources/local-bosh-source.json
-
 echo
 echo "SUCCESS"
 exit 0

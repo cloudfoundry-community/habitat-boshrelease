@@ -10,9 +10,6 @@ inputs:
   - name: git
   - name: resource-bosh-stemcell
 
-# outputs:
-#   - name: sources
-
 params:
   REPO_ROOT: replaceme
   manifest: replaceme

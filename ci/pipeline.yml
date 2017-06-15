@@ -70,22 +70,6 @@ jobs:
         - { get: git, trigger: true }
         - get: resource-bosh-stemcell
           resource: resource-bosh-stemcell
-    #   - task: testflight
-    #     config:
-    #       platform: linux
-    #       rootfs_uri:    (( grab meta.image ))
-    #       inputs:
-    #         - { name: git }
-    #       run:
-    #         path: ./git/ci/scripts/testflight
-    #         args: []
-    #       params:
-    #         REPO_ROOT:            git
-    #         BOSH_LITE_TARGET:     (( grab meta.bosh-lite.target ))
-    #         BOSH_LITE_USERNAME:   (( grab meta.bosh-lite.username ))
-    #         BOSH_LITE_PASSWORD:   (( grab meta.bosh-lite.password ))
-    #         BOSH_LITE_DEPLOYMENT: (( grab meta.bosh-lite.deployment ))
-    #         TEST_ERRAND:          (( grab meta.test-errand || ~ ))
       - task: local-bosh
         file: git/ci/tasks/local-bosh/task.yml
         privileged: true
@@ -93,37 +77,7 @@ jobs:
           REPO_ROOT: git
           manifest: (( grab meta.bosh-lite.manifest ))
           deploymentname: (( grab meta.bosh-lite.deployment ))
-          # TODO: make stemcell a resource
           stemcell: resource-bosh-stemcell/*.tgz
-
-      # - put: staging
-      #   params:
-      #     source_file: sources/local-bosh-source.json
-      #     manifest: (( grab meta.bosh-lite.manifest ))
-
-      # - task: testflight_cleanup
-      #   config:
-      #     platform: linux
-      #     rootfs_uri:    (( grab meta.image ))
-      #     inputs:
-      #       - { name: git }
-      #     run:
-      #       path: ./git/ci/scripts/testflight_cleanup
-      #       args: []
-      #     params:
-      #       REPO_ROOT:            git
-      #       BOSH_LITE_TARGET:     (( grab meta.bosh-lite.target ))
-      #       BOSH_LITE_USERNAME:   (( grab meta.bosh-lite.username ))
-      #       BOSH_LITE_PASSWORD:   (( grab meta.bosh-lite.password ))
-      #       BOSH_LITE_DEPLOYMENT: (( grab meta.bosh-lite.deployment ))
-      #       TEST_ERRAND:          (( grab meta.test-errand || ~ ))
-      # on_failure:
-      #   put: notify
-      #   params:
-      #     channel:  (( grab meta.slack.channel ))
-      #     username: (( grab meta.slack.username ))
-      #     icon_url: (( grab meta.slack.icon ))
-      #     text:    '(( concat meta.slack.fail_url " " meta.pipeline ": test job failed" ))'
 
   - name: rc
     public: true
@@ -291,12 +245,3 @@ resources:
     type: bosh-io-stemcell
     source:
       name: bosh-warden-boshlite-ubuntu-trusty-go_agent
-
-  # - name: staging
-  #   type: bosh-deployment
-  #   source:
-  #     deployment: (( grab meta.bosh-lite.deployment ))
-  #     # target: (( grab meta.bosh-lite.target ))
-  #     # client: (( grab meta.bosh-lite.username ))
-  #     # client_secret: (( grab meta.bosh-lite.password ))
-  #     # ca_cert: (( grab meta.bosh-lite.ca_cert ))

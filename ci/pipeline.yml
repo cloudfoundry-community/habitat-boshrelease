@@ -205,7 +205,6 @@ resource_types:
 resources:
   - name: git
     type: git
-    submodules: all
     source:
       uri:         (( grab meta.github.uri ))
       branch:      (( grab meta.github.branch ))

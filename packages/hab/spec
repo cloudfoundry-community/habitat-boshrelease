@@ -4,4 +4,4 @@ name: hab
 dependencies: []
 
 files:
-  - hab/hab-0.24.1-20170522083228-x86_64-linux.tar.gz
+  - hab/hab-0.25.1-20170708004945-x86_64-linux.tar.gz

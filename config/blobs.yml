@@ -10,3 +10,7 @@ hab/hab-0.29.1-20170811000955-x86_64-linux.tar.gz:
   size: 3668806
   object_id: 49669c0d-a84f-4b27-74d7-8b71b8654627
   sha: 31e6cbe2ebe08bf0fbb60b4005c5141a6078bc54
+hab/hab-0.30.2-x86_64-linux.tar.gz:
+  size: 3701556
+  object_id: 038bcdb4-6729-4658-65ac-53a818343b38
+  sha: 1f0baf73bdcf0b8dd546c74fd3b5f8c126c0a017

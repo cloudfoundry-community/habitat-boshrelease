@@ -1,0 +1,19 @@
+---
+name: hab-sup
+
+templates:
+  bin/ctl: bin/ctl
+  bin/monit_debugger: bin/monit_debugger
+
+consumes:
+- name: habitat
+  type: habitat
+
+provides:
+- name: habitat
+  type: habitat
+
+packages:
+  - hab
+
+properties:

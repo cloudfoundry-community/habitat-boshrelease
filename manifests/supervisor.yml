@@ -19,11 +19,8 @@ instance_groups:
   networks:
   - name: default
   jobs:
-  - name: hab
+  - name: hab-sup
     release: habitat
-  properties:
-    hab:
-      service: supervisor
 
 
 releases:
